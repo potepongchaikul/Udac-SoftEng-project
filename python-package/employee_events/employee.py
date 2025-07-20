@@ -16,19 +16,19 @@ class Employee(QueryBase):
     # to the string "employee"
     name = "employee"
     
-    # Define a method called `names`
-    # that receives no arguments
-    # This method should return a list of tuples
-    # from an sql execution
+    # The `names` will receive no arguments.
+    # This method returns a list of tuples
+    # by calling 'query' method in sql_execution.py
     def names(self):
         
-        # Query 3
-        # Write an SQL query
-        # that selects two columns 
-        #   1. The employee's full name
+        # The SQL query will select
+        # two columns:
+        #   1. The employee's first name
+        #   2. The employee's last name
         #   2. The employee's id
-        # This query should return the data
+        # This query returns 2-column data
         # for all employees in the database
+        # containing their full name and their id
         query_string = f"""
             select 
                 concat(first_name, " ",last_name) as full_name, 
@@ -40,18 +40,16 @@ class Employee(QueryBase):
         results = super().query(query_string)
         return results
     
-    # Define a method called `username`
-    # that receives an `id` argument
-    # This method should return a list of tuples
+    # The `username` method will receive:
+    # `id` argument and return a list of tuples
     # from an sql execution
     def username(self, id):
         
-        # Query 4
-        # Write an SQL query
-        # that selects an employees full name
-        # Use f-string formatting and a WHERE filter
-        # to only return the full name of the employee
-        # with an id equal to the id argument
+        # SQL query:
+        #   - Selects an employees full name
+        #   - Filter with a WHERE clause
+        #     to only return the full name of the employee
+        #     with an id equal to the id argument
         query_string = f""" 
             select
                 concat(first_name, " ",last_name) as full_name
