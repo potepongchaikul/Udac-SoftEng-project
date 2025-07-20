@@ -26,7 +26,7 @@ class QueryBase(QueryMixin):
     #     - Filter employee_events data by the `id`
     #     - Group and Order those by `event_date`
     #     - Returns a pandas dataframe
-    # References (from questions posted in 'Knowledge' forum): 
+    # Ref: (from questions posted in 'Knowledge' forum): 
     #     `name`: Table name ("employee" or "team")
     #     `id`: This id is the specific employee or team ID you want to filter the results for.     
     def event_counts(self, id):

@@ -90,10 +90,8 @@ class LineChart(MatplotlibViz):
         results = results.set_index('Day')
         
         # Sort the index
-        """ 
-        Ref: Sorting Pandas dataframe index
-        https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html
-        """
+        # Ref: Sorting Pandas dataframe index
+        # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html
         results_sort = results.sort_index()
         
         # Use the .cumsum method to change the data
@@ -128,10 +126,9 @@ class LineChart(MatplotlibViz):
         # Set title and labels for x and y axis
         ax.set_title(f'Cumulative event frequency for {model.name} {entity_id}')
 
-        """ Syntax for setting x & y labels on matplotlib.axes.Axes object:
-        - x_label: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html
-        - y_label: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylabel.html """
-        
+        # Ref: Syntax for setting x & y labels on matplotlib.axes.Axes object:
+        # - x_label: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_xlabel.html
+        # - y_label: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylabel.html 
         ax.set_xlabel('Day')
         ax.set_ylabel('No. Events')
 
