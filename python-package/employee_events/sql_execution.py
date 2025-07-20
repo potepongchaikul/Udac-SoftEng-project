@@ -3,48 +3,35 @@ from pathlib import Path
 from functools import wraps
 import pandas as pd
 
-# Using pathlib, create a `db_path` variable
-# that points to the absolute path for the `employee_events.db` file
-#### YOUR CODE HERE
-
-""" 
-# sql_execution.py: Udac-SoftEng-project/python-package/employee_events/sql_execution.py
-# employee_events.db: Udac-SoftEng-project/python-package/employee_events/employee_events.db
-"""
+# Define path variable: `db_path`
+# This points to `employee_events.db` file. This directory
+# will be subsequently used for establishing database connection
 db_path = Path(__file__).parent / "employee_events.db"
 
 
-# OPTION 1: MIXIN
-# Define a class called `QueryMixin`
+# Define a `QueryMixin` class:
+# This acts as add-on to the `QueryBase` class in
+# query_base.py, by creating connection using `db_path`.
+# 
+# Methods:
+# - `pandas_query`: Return results as Pandas dataframe
+# - `query`: Return results as list of tuples
+
 class QueryMixin:
-    
-    # Define a method named `pandas_query`
-    # that receives an sql query as a string
-    # and returns the query's result
-    # as a pandas dataframe
-    #### YOUR CODE HERE
     def pandas_query(self, query_string):
         connection = connect(db_path)
         result = pd.read_sql(query_string, connection)
         connection.close()
         return result
 
-    # Define a method named `query`
-    # that receives an sql_query as a string
-    # and returns the query's result as
-    # a list of tuples. (You will need
-    # to use an sqlite3 cursor)
-    #### YOUR CODE HERE
     def query(self, query_string):
         connection = connect(db_path)
         cursor = connection.cursor()
         result = cursor.execute(query_string).fetchall()
         connection.close()
         return result
-    
-
  
- # Leave this code unchanged
+# Leave this code unchanged
 def query(func):
     """
     Decorator that runs a standard sql execution
