@@ -22,10 +22,10 @@ class Employee(QueryBase):
     def names(self):
         
         # The SQL query will select
-        # two columns:
+        # three columns:
         #   1. The employee's first name
         #   2. The employee's last name
-        #   2. The employee's id
+        #   3. The employee's id
         # This query returns 2-column data
         # for all employees in the database
         # containing their full name and their id
