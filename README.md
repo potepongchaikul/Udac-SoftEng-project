@@ -1,7 +1,23 @@
 
-# Software Engineering for Data Scientists 
+# Employee turnover dashboard
 
-This repository contains starter code for the **Software Engineering for Data Scientists** final project. Please reference your course materials for documentation on this repository's structure and important files. Happy coding!
+This repository was developed for use in Udacity's **Software Engineering for Data Scientists** final project.
+
+### Objective
+To create dashboard visualization that allows users to view the predicted probability of a turnover for a team, or individual employee.
+
+### Repository Components overview
+- `assets`: Folder comprising a classifier object that predicts turnover probability.
+- `python-package`: 
+  - A folder composed of scripts used to setup and execute SQL queries against employee database, `employee_events.db`. 
+  - Data entity relationship diagram is displayed below. 
+  - To enhance portability, a `setup.py` is provided to create a custom package, `employee_events`.
+- `report`:
+  - A folder for creating dashboard using FastHTML.
+  - Interacts with `employee_events.db` to generate visualizations of teams and employees.
+- `requirements.txt` lists packages and versions required.
+- `tests`:
+  - A `.py` file for running unit tests using `pytest`.
 
 ### Repository Structure
 ```
@@ -40,42 +56,35 @@ This repository contains starter code for the **Software Engineering for Data Sc
     └── test_employee_events.py
 ```
 
-### employee_events.db
+### ER diagram for `employee_events`:
+Provided under _4.4 Project Instructions_ page.
+!['image](employee_events_ER_diagram.png)
 
-```mermaid
-erDiagram
+### Getting started
+- Provision `employee_events` package by:
+  - Creating a distribution
+  ```
+  cd ./python-package
+  python setup.py sdist
+  ```
 
-  employee {
-    INTEGER employee_id PK
-    TEXT first_name
-    TEXT last_name
-    INTEGER team_id
-    
-  }
+  - Run the installation 
+  ```
+  pip install dist/employee_events-0.0.tar.gz
+  ``` 
 
-  employee_events {
-    TEXT event_date
-    INTEGER employee_id FK
-    INTEGER team_id FK
-    INTEGER positive_events
-    INTEGER negative_events
-  }
+  - Check by activating `ipython`:
+  ```python
+  import employee_events
+  ```
 
-  notes {
-    INTEGER employee_id PK
-    INTEGER team_id PK
-    TEXT note
-    TEXT note_date PK
-  }
+- To access the dashboard, 
+  - `cd` to access `report` folder
+  - Run:
+  ```
+  python dashboard.py
+  ```
 
-  team {
-    INTEGER team_id PK
-    TEXT team_name
-    TEXT shift
-    TEXT manager_name
-  }
-
-  team ||--o{ employee_events : "team_id"
-  employee ||--o{ employee_events : "employee_id"
-  notes }o--o{ employee_events : ""
-```
+### References
+- This repository was developed from this [source](https://github.com/udacity/dsnd-dashboard-project).
+- Sources used for coding is referenced in the code comments, prefixed by `Ref: `.
