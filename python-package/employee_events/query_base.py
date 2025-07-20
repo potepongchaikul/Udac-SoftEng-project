@@ -4,43 +4,33 @@ from pathlib import Path
 import pandas as pd
 from .sql_execution import QueryMixin
 
-# Define a class called QueryBase
-# Use inheritance to add methods
-# for querying the employee_events database.
+# Subclass `QueryMixin` to exploit the inherited `query` and 
+# `pandas_query` methods.
 class QueryBase(QueryMixin):
-
-    # Create a class attribute called `name`
-    # set the attribute to an empty string
+    
+    # `name`: Class attribute 
+    # Set to empty string, but can be overwritten by its 
+    # subclass, e.g. Employeee or Team.
     name = ""
 
-    # Define a `names` method that receives
-    # no passed arguments
+    # `names`: Method
+    # Set to empty list, but can be overwritten by its 
+    # subclass, e.g. Employeee or Team.
     def names(self):
-        
-        # Return an empty list
         return []
 
-
-    # Define an `event_counts` method
-    # that receives an `id` argument
-    # This method should return a pandas dataframe
+    # The `event_counts` will exploit the inherited 
+    # `pandas_query` method to:
+    #     - Inner join `name` (a table) with employee_events
+    #     - Query positive events and negative events
+    #     - Filter employee_events data by the `id`
+    #     - Group and Order those by `event_date`
+    #     - Returns a pandas dataframe
+    # References (from questions posted in 'Knowledge' forum): 
+    #     `name`: Table name ("employee" or "team")
+    #     `id`: This id is the specific employee or team ID you want to filter the results for.     
     def event_counts(self, id):
-
-        # QUERY 1
-        # Write an SQL query that groups by `event_date`
-        # and sums the number of positive and negative events
-        # Use f-string formatting to set the FROM {table}
-        # to the `name` class attribute
-        # Use f-string formatting to set the name
-        # of id columns used for joining
-        # order by the event_date column
-
-        """ 
-        Ref (from questions posted in 'Knowledge' forum): 
-        `name`: Table name ("employee" or "team")
-        `id`: This id is the specific employee or team ID you want to filter the results for.
-        """
-
+        
         query_string = f"""
             select 
                 event_date as Day,
@@ -60,17 +50,11 @@ class QueryBase(QueryMixin):
         results = super().pandas_query(query_string)
         return results
 
-    # Define a `notes` method that receives an id argument
-    # This function should return a pandas dataframe
+    # The `notes` method will retrieve `note_date`
+    # and `note` columns filtered by the provided `id`.
+    # The result is provided as a Pandas dataframe.
     def notes(self, id):
 
-        # QUERY 2
-        # Write an SQL query that returns `note_date`, and `note`
-        # from the `notes` table
-        # Set the joined table names and id columns
-        # with f-string formatting
-        # so the query returns the notes
-        # for the table name in the `name` class attribute
         query_string = f"""
             select 
                 {self.name}_id as `{self.name} ID`,
