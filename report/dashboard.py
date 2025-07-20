@@ -64,7 +64,7 @@ class Header(BaseComponent):
         # return a fasthtml H1 objects
         # containing the model's name attribute
         return Div(
-            H1(model.name)
+            H1(f"{model.name.capitalize()} dashboard")
         )
           
 
@@ -114,6 +114,7 @@ class LineChart(MatplotlibViz):
         # call the .plot method for the
         # cumulative counts dataframe
         ax = df_cumsum_rename.plot(kind='line')
+        ax.tick_params(axis='x', labelrotation=20)
         
         # pass the axis variable
         # to the `.set_axis_styling`
@@ -152,7 +153,6 @@ class BarChart(MatplotlibViz):
         # pass the `asset_id` to the `.model_data` method
         # to receive the data that can be passed to the machine
         # learning model
-        
         data = model.model_data(entity_id)
         
         # Using the predictor class attribute
@@ -178,7 +178,7 @@ class BarChart(MatplotlibViz):
             pred = data.loc[:,'Prob'][0]
         
         # Initialize a matplotlib subplot
-        fig, ax = plt.subplots(figsize = (12, 8))
+        fig, ax = plt.subplots(figsize = (8, 4))
         
         # Run the following code unchanged
         ax.barh([''], [pred])
